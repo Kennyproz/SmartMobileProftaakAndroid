@@ -35,5 +35,8 @@ public class Hardware {
         mediaPlayer.start();
     }
 
+    public void stopMedia() {mediaPlayer.stop();}
+
+    public void pauseMedia() {mediaPlayer.pause();}
 
 }

@@ -3,16 +3,56 @@ package com.example.ken.smartmobileproftaakandroid;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    Hardware hardware;
+    Switch mediaSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final MediaPlayer mp = MediaPlayer.create(this,R.raw.alarm);
-        // Hardware hardware = new Hardware(this,mp);
-        // hardware.startMedia();
+
+        initialize();
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        hardware.stopMedia();
+
+    }
+
+    public void playMediaPlayer(View view){
+       if (mediaSwitch.isChecked())
+       {
+           alarm(true);
+       }
+       else {
+           alarm(false);
+       }
+    }
+
+    public boolean alarm (Boolean bool){
+        if (bool){
+            hardware.startMedia();
+            Toast.makeText(this, "Alarm started", Toast.LENGTH_SHORT).show();
+         return true;
+        }
+        else {
+            hardware.pauseMedia();
+            Toast.makeText(this, "Alarm paused", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    public void initialize(){
+        MediaPlayer mp = MediaPlayer.create(this,R.raw.alarm);
+        hardware = new Hardware(this,mp);
+        mediaSwitch = (Switch)findViewById(R.id.swMediaPlayer);
     }
 
 }

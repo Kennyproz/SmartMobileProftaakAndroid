@@ -3,11 +3,15 @@ package com.example.ken.smartmobileproftaakandroid;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Ken on 30-11-2017.
@@ -69,6 +73,11 @@ public class Hardware {
             }
         }
     }
+
+    public Set<BluetoothDevice> getAllBluetoothDevices(){
+        return bluetoothAdapter.getBondedDevices();
+    }
+
 
 
 }

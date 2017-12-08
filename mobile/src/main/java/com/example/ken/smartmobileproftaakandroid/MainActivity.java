@@ -1,17 +1,23 @@
 package com.example.ken.smartmobileproftaakandroid;
 
+import android.bluetooth.BluetoothDevice;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     Hardware hardware;
     Switch mediaSwitch;
-    TextView tv;
+    TextView tvBluetooth;
+    ListView lvConnectedDevices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer mp = MediaPlayer.create(this,R.raw.alarm);
         hardware = new Hardware(this,mp);
         mediaSwitch = (Switch)findViewById(R.id.swMediaPlayer);
-        tv = (TextView)findViewById(R.id.tvBluetooth);
-        tv.setText(hardware.bluetoothState());
+        lvConnectedDevices = (ListView)findViewById(R.id.lvConnectedDevices);
+        fillBluetoothList();
+        tvBluetooth = (TextView)findViewById(R.id.tvBluetooth);
+        tvBluetooth.setText(hardware.bluetoothState());
     }
 
     public void playMediaPlayer(View view){
@@ -46,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean alarm (Boolean bool){
-        tv.setText(hardware.bluetoothState());
+        tvBluetooth.setText(hardware.bluetoothState());
         if (bool){
             hardware.startMedia();
             hardware.startVibrate();
@@ -61,7 +69,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void fillBluetoothList(){
+        if(hardware.bluetoothState().equals("Bluetooth is verbonden.")){
+        ArrayAdapter adapter = new ArrayAdapter(lvConnectedDevices.getContext(),android.R.layout.simple_list_item_1);
+        hardware.fillConnectedDeviceList(lvConnectedDevices,adapter);
+        } else {
+            Toast.makeText(this, hardware.bluetoothState(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 

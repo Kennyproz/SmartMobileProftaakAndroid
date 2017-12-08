@@ -9,7 +9,11 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -76,6 +80,16 @@ public class Hardware {
 
     public Set<BluetoothDevice> getAllBluetoothDevices(){
         return bluetoothAdapter.getBondedDevices();
+    }
+
+
+    public void fillConnectedDeviceList(ListView listView, ArrayAdapter adapter){
+        List list = new ArrayList<BluetoothDevice>();
+        for (BluetoothDevice b : getAllBluetoothDevices()){
+            list.add(b);
+        }
+        adapter = new ArrayAdapter<>(listView.getContext(), android.R.layout.simple_list_item_1,list);
+        listView.setAdapter(adapter);
     }
 
 

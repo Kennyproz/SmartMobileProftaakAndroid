@@ -1,72 +1,78 @@
 package com.example.ken.smartmobileproftaakandroid;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.media.AudioDeviceInfo;
-import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.wearable.activity.WearableActivity;
+import android.view.View;
 import android.widget.Switch;
-import android.widget.TextView;
+
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 
 public class MainWearActivity extends WearableActivity {
-
-    private TextView mTextView;
+    private TimerTask mT1;
+    private Timer mTimer1;
+    private Handler mTimerHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wear);
 
-        mTextView = (TextView) findViewById(R.id.text);
-
         // Enables Always-on
         setAmbientEnabled();
 
         Initialize();
+
     }
 
     public void Initialize(){
 
-        Switch turnOnSound = findViewById(R.id.switch1);
-        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        long[] vibrationPattern = {0, 500, 50, 300};
-        //-1 - don't repeat
-        final int indexInPatternToRepeat = -1;
+    }
 
-        if(turnOnSound.isChecked()){
-            vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
+    public void DoVibrate(){
+        final Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        mTimer1 = new Timer();
+        mT1 = new TimerTask(){
+            public void run(){
+                mTimerHandler.post(new Runnable(){
+                    public void run(){
+                        vibrator.vibrate(100);
+                    }
+                });
+            }
+        };
+        mTimer1.schedule(mT1, 1, 500);
+    }
+
+    public void DoNotVibrate(){
+        if(mTimer1 != null){
+            mTimer1.cancel();
+            mTimer1.purge();
+        }
+    }
+
+    public void vibrateSwitch(View view){
+
+        Switch vibrateSwitch = findViewById(R.id.switch1);
+
+        if(vibrateSwitch.isChecked()){
+            DoVibrate();
         }
         else{
-            vibrator.vibrate(100);
+            DoNotVibrate();
         }
 
-        turnOnSound.setChecked(true);
-
-        PlaySoundVibrate();
     }
 
     //https://developer.android.com/training/wearables/wearable-sounds.html
-    public boolean PlaySoundVibrate(){
-        PackageManager packageManager = context.getPackageManager();
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-
-        // Check whether the device has a speaker.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // Check FEATURE_AUDIO_OUTPUT to guard against false positives.
-            if (!packageManager.hasSystemFeature(PackageManager.FEATURE_AUDIO_OUTPUT)) {
-                return false;
-            }
-
-            AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
-            for (AudioDeviceInfo device : devices) {
-                if (device.getType() == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    //Find if there's an audio device is available
 }

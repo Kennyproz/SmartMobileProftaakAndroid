@@ -5,11 +5,7 @@ android {
     defaultConfig {
         applicationId "com.example.ken.smartmobileproftaakandroid"
         minSdkVersion 23
-<<<<<<< HEAD
         targetSdkVersion 23
-=======
-        targetSdkVersion 26
->>>>>>> Smartwatch-fixes
         versionCode 1
         versionName "1.0"
     }

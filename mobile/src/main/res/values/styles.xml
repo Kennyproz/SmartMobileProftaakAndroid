@@ -11,8 +11,8 @@
 
     <style name="DarkGreen" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">#045340</item>
-        <item name="colorPrimaryDark">#045340</item>
-        <item name="colorAccent">#9E9E9E</item>
+        <item name="colorPrimaryDark">#004330</item>
+        <item name="colorAccent">#fff</item>
         <item name="android:background"></item>
     </style>
 </resources>

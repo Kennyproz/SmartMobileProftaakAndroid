@@ -13,6 +13,10 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.CapabilityApi;
+import com.google.android.gms.wearable.Wearable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -22,10 +26,12 @@ import java.util.Set;
  */
 
 public class Hardware {
+    private static final String CAPABILITY_NAME = "voice_transcription";
     Vibrator vibrator;
     BluetoothAdapter bluetoothAdapter;
     MediaPlayer mediaPlayer;
     Context context;
+    BluetoothDevice bluetoothDevice;
 
     @SuppressLint("ServiceCast")
     public Hardware (Context con, MediaPlayer mp){
@@ -35,6 +41,13 @@ public class Hardware {
         this.context = con;
     }
 
+    public BluetoothDevice getBluetoothDevice() {
+        return bluetoothDevice;
+    }
+
+    public void setBluetoothDevice(BluetoothDevice bluetoothDevice) {
+        this.bluetoothDevice = bluetoothDevice;
+    }
 
     //source https://stackoverflow.com/questions/13950338/how-to-make-an-android-device-vibrate
     public void startVibrate(){
@@ -82,15 +95,17 @@ public class Hardware {
         return bluetoothAdapter.getBondedDevices();
     }
 
-
     public void fillConnectedDeviceList(ListView listView, ArrayAdapter adapter){
-        List list = new ArrayList<BluetoothDevice>();
+        List list = new ArrayList<BluetoothDev>();
         for (BluetoothDevice b : getAllBluetoothDevices()){
-            list.add(b);
+            BluetoothDev bd = new BluetoothDev(b);
+            list.add(bd);
         }
         adapter = new ArrayAdapter<>(listView.getContext(), android.R.layout.simple_list_item_1,list);
         listView.setAdapter(adapter);
     }
+
+
 
 
 

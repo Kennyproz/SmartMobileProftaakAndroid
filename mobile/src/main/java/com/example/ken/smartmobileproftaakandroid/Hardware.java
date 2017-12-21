@@ -66,6 +66,7 @@ public class Hardware {
             vibrator.vibrate(seconds*100);
         }
     }
+
     public void stopVibrate() {
         vibrator.cancel();
     }

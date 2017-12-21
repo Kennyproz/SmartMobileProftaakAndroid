@@ -14,7 +14,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="U bent beveiligd"
+        android:text="-"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvBackgroundcolor"
         app:layout_constraintEnd_toEndOf="@+id/tvBackgroundcolor"

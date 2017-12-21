@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         fillBluetoothList();
         tvBluetooth = (TextView)findViewById(R.id.tvBluetooth);
         tvBluetooth.setText(hardware.bluetoothState());
-        tvMessage.setTextColor(Color.WHITE);
     }
 
     public void playMediaPlayer(View view){
@@ -96,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             hardware.startMedia();
             hardware.startVibrate();
             tvMessage.setText("U bent niet beveiligd");
+            tvMessage.setTextColor(Color.WHITE);
             Toast.makeText(this, "Alarm started", Toast.LENGTH_SHORT).show();
          return true;
         }
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             hardware.pauseMedia();
             hardware.stopVibrate();
             tvMessage.setText("U bent beveiligd");
+            tvMessage.setTextColor(Color.WHITE);
             Toast.makeText(this, "Alarm paused", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -117,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, hardware.bluetoothState(), Toast.LENGTH_SHORT).show();
         }
     }
+
+ /*   public void screenChanges(String backgroundcolor, String messageText,String notificationText){
+        tvBackgroundColor.setBackgroundColor(Color.parseColor(backgroundcolor));
+        tvMessage.setText(messageText);
+        tvMessage.setTextColor(Color.WHITE);
+        Toast.makeText(this, notificationText.toString(), Toast.LENGTH_SHORT).show();
+    }*/
 
 
 

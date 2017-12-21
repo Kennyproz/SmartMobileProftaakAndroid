@@ -1,7 +1,10 @@
 package com.example.ken.smartmobileproftaakandroid;
 
-import android.bluetooth.BluetoothDevice;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +13,6 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Hardware hardware;
@@ -47,10 +48,35 @@ public class MainActivity extends AppCompatActivity {
        if (mediaSwitch.isChecked())
        {
            alarm(true);
+           sendNotification();
        }
        else {
            alarm(false);
        }
+    }
+
+    private void sendNotification() {
+
+        int notificationId = 001;
+        // The channel ID of the notification.
+        String id = "my_channel_01";
+        // Build intent for notification content
+        Intent viewIntent = new Intent(this, MainActivity.class);
+        //viewIntent.putExtra(EXTRA_EVENT_ID, eventId);
+        PendingIntent viewPendingIntent =
+                PendingIntent.getActivity(this, 0, viewIntent, 0);
+
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, id)
+                        .setSmallIcon(R.drawable.sligrologo)
+                        .setContentTitle("Sligro Security")
+                        .setContentText("Help me, i'm being stolen!")
+                        .setContentIntent(viewPendingIntent);
+
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(this);
+
+        notificationManager.notify(notificationId, notificationBuilder.build());
     }
 
     public boolean alarm (Boolean bool){

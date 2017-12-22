@@ -66,20 +66,23 @@ public class MainActivity extends AppCompatActivity {
     private void sendNotification() {
 
         int notificationId = 001;
-        // The channel ID of the notification.
         String id = "my_channel_01";
-        // Build intent for notification content
         Intent viewIntent = new Intent(this, MainActivity.class);
-        //viewIntent.putExtra(EXTRA_EVENT_ID, eventId);
         PendingIntent viewPendingIntent =
                 PendingIntent.getActivity(this, 0, viewIntent, 0);
+
+
+        NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender()
+                .setHintHideIcon(false);
 
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, id)
                         .setSmallIcon(R.drawable.sligrologo)
                         .setContentTitle("Sligro Security")
-                        .setContentText("Help me, i'm being stolen!")
-                        .setContentIntent(viewPendingIntent);
+                        .setContentText("Mobile out of reach. Respond!")
+                        .extend(wearableExtender)
+                        .setContentIntent(viewPendingIntent)
+                .addAction(R.drawable.sligrologo, "No", viewPendingIntent);
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);

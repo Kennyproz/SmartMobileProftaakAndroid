@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Switch mediaSwitch;
     TextView tvBluetooth, tvMessage, tvBackgroundColor;
     ListView lvConnectedDevices;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initialize() {
         MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
+        img = (ImageView)findViewById(R.id.ivCheck);
         hardware = new Hardware(this, mp);
         mediaSwitch = (Switch) findViewById(R.id.swMediaPlayer);
         tvMessage = (TextView) findViewById(R.id.tvSafetyMessage);
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("ResourceAsColor")
     private void sendNotification() {
+        if (hardware.bluetoothState().equals(BluetoothState.CONNECTED)){
 
         int notificationId = 001;
         String id = "my_channel_01";
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 NotificationManagerCompat.from(this);
 
         notificationManager.notify(notificationId, notificationBuilder.build());
+        }
     }
 
     public boolean alarm(Boolean bool) {
@@ -96,14 +100,14 @@ public class MainActivity extends AppCompatActivity {
             tvBackgroundColor.setBackgroundColor(Color.parseColor("#FF0000"));
             hardware.startMedia();
             hardware.startVibrate();
-            //  tvMessage.setText("U bent niet beveiligd");
-            //Toast.makeText(this, "Alarm started", Toast.LENGTH_SHORT).show();
+            img.setImageResource(R.drawable.uncheck);
             return true;
         } else {
             screenChanges("U bent beveiligd.", "Alarm gepauzeerd");
             tvBackgroundColor.setBackgroundColor(Color.parseColor("#045340"));
             hardware.pauseMedia();
             hardware.stopVibrate();
+            img.setImageResource(R.drawable.check);
             return false;
         }
     }

@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent viewPendingIntent =
                 PendingIntent.getActivity(this, 0, viewIntent, 0);
 
+        String replyLabel = "Reply";
+        String[] replyChoices = getResources().getStringArray(R.array.reply_choices);
 
         NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender()
                 .setHintHideIcon(false);

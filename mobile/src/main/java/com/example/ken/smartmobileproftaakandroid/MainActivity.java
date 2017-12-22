@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.RemoteInput;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvBluetooth, tvMessage, tvBackgroundColor;
     ListView lvConnectedDevices;
     ImageView img;
+    public static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
         String replyLabel = "Reply";
         String[] replyChoices = getResources().getStringArray(R.array.reply_choices);
 
+        RemoteInput remoteInput = new RemoteInput.Builder(EXTRA_VOICE_REPLY)
+                .setLabel(replyLabel)
+                .setChoices(replyChoices)
+                .build();
+
+        NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.sligrologo, replyLabel, viewPendingIntent)
+                .addRemoteInput(remoteInput)
+                .setAllowGeneratedReplies(true)
+                .build();
+
         NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender()
                 .setHintHideIcon(false);
 
@@ -84,9 +96,8 @@ public class MainActivity extends AppCompatActivity {
                         .setSmallIcon(R.drawable.sligrologo)
                         .setContentTitle("Sligro Security")
                         .setContentText("Mobile out of reach. Respond!")
-                        .extend(wearableExtender)
-                        .setContentIntent(viewPendingIntent)
-                .addAction(R.drawable.sligrologo, "No", viewPendingIntent);
+                        .extend(wearableExtender.addAction(action))
+                        .setContentIntent(viewPendingIntent);
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);

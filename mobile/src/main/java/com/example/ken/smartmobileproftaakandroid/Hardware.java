@@ -79,15 +79,17 @@ public class Hardware {
 
     public void pauseMedia() {mediaPlayer.pause();}
 
-    public String bluetoothState(){
+    public BluetoothState bluetoothState(){
         if (bluetoothAdapter == null){
-            return "Apparaat ondersteunt geen bluetooth.";
+           return BluetoothState.NOT_SUPPORTED;
+            //return "Apparaat ondersteunt geen bluetooth.";
         } else {
             if (bluetoothAdapter.isEnabled()){
-                return "Bluetooth is verbonden.";
+                return BluetoothState.CONNECTED;
             }
             else {
-                return "Bluetooth is niet verbonden.";
+                return BluetoothState.NOT_CONNECTED;
+                //return "Bluetooth is niet verbonden.";
             }
         }
     }

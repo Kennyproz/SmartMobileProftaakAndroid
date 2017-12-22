@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         setTvBluetoothText();
         if (bool) {
             screenChanges("U bent niet beveiligd.", "Alarm started");
-            tvBackgroundColor.setBackgroundColor(Color.parseColor("#FF0000"));
+            tvBackgroundColor.setBackgroundColor(Color.parseColor("#8B0000"));
             hardware.startMedia();
             hardware.startVibrate();
             img.setImageResource(R.drawable.uncheck);

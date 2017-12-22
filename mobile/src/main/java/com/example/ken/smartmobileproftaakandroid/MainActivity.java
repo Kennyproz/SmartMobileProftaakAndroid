@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayAdapter adapter = new ArrayAdapter(lvConnectedDevices.getContext(), android.R.layout.simple_list_item_1);
             hardware.fillConnectedDeviceList(lvConnectedDevices, adapter);
         } else {
-            Toast.makeText(this, hardware.bluetoothState().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bluetooth: " + hardware.bluetoothState().toString(), Toast.LENGTH_SHORT).show();
         }
     }
 

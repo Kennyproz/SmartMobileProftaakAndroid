@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     Hardware hardware;
     Switch mediaSwitch;
-    TextView tvBluetooth, tvMessage,tvBackgroundColor;
+    TextView tvBluetooth, tvMessage, tvBackgroundColor;
     ListView lvConnectedDevices;
 
     @Override
@@ -32,100 +32,108 @@ public class MainActivity extends AppCompatActivity {
 
         initialize();
     }
+
     @Override
     public void onPause() {
         super.onPause();
-     //   hardware.stopMedia();
+        //   hardware.stopMedia();
 
     }
 
-    public void initialize(){
-        MediaPlayer mp = MediaPlayer.create(this,R.raw.alarm);
-        hardware = new Hardware(this,mp);
-        mediaSwitch = (Switch)findViewById(R.id.swMediaPlayer);
-        tvMessage = (TextView)findViewById(R.id.tvSafetyMessage);
-        tvBackgroundColor = (TextView)findViewById(R.id.tvBackgroundcolor);
-        lvConnectedDevices = (ListView)findViewById(R.id.lvConnectedDevices);
+    public void initialize() {
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
+        hardware = new Hardware(this, mp);
+        mediaSwitch = (Switch) findViewById(R.id.swMediaPlayer);
+        tvMessage = (TextView) findViewById(R.id.tvSafetyMessage);
+        tvBackgroundColor = (TextView) findViewById(R.id.tvBackgroundcolor);
+        lvConnectedDevices = (ListView) findViewById(R.id.lvConnectedDevices);
         fillBluetoothList();
-        tvBluetooth = (TextView)findViewById(R.id.tvBluetooth);
-        tvBluetooth.setText(hardware.bluetoothState());
+        tvBluetooth = (TextView) findViewById(R.id.tvBluetooth);
+        setTvBluetoothText();
     }
 
-    public void playMediaPlayer(View view){
-       if (mediaSwitch.isChecked())
-       {
-           alarm(true);
-           sendNotification();
-       }
-       else {
-           alarm(false);
-       }
+    public void playMediaPlayer(View view) {
+        if (mediaSwitch.isChecked()) {
+            alarm(true);
+            sendNotification();
+        } else {
+            alarm(false);
+        }
     }
 
     @SuppressLint("ResourceAsColor")
     private void sendNotification() {
+        if (hardware.bluetoothState().equals("Bluetooth is verbonden.")) {
+            int notificationId = 001;
+            // The channel ID of the notification.
+            String id = "my_channel_01";
+            // Build intent for notification content
+            Intent viewIntent = new Intent(this, MainActivity.class);
+            //viewIntent.putExtra(EXTRA_EVENT_ID, eventId);
+            PendingIntent viewPendingIntent =
+                    PendingIntent.getActivity(this, 0, viewIntent, 0);
 
-        int notificationId = 001;
-        // The channel ID of the notification.
-        String id = "my_channel_01";
-        // Build intent for notification content
-        Intent viewIntent = new Intent(this, MainActivity.class);
-        //viewIntent.putExtra(EXTRA_EVENT_ID, eventId);
-        PendingIntent viewPendingIntent =
-                PendingIntent.getActivity(this, 0, viewIntent, 0);
+            NotificationCompat.Builder notificationBuilder =
+                    new NotificationCompat.Builder(this, id)
+                            .setSmallIcon(R.drawable.sligrologo)
+                            .setContentTitle("Sligro Security")
+                            .setContentText("Help me, i'm being stolen!")
+                            .setContentIntent(viewPendingIntent);
 
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this, id)
-                        .setSmallIcon(R.drawable.sligrologo)
-                        .setContentTitle("Sligro Security")
-                        .setContentText("Help me, i'm being stolen!")
-                        .setContentIntent(viewPendingIntent);
+            NotificationManagerCompat notificationManager =
+                    NotificationManagerCompat.from(this);
 
-        NotificationManagerCompat notificationManager =
-                NotificationManagerCompat.from(this);
-
-        notificationManager.notify(notificationId, notificationBuilder.build());
+            notificationManager.notify(notificationId, notificationBuilder.build());
+        }
     }
 
-    public boolean alarm (Boolean bool){
-        tvBluetooth.setText(hardware.bluetoothState());
-
-        if (bool){
+    public boolean alarm(Boolean bool) {
+        setTvBluetoothText();
+        if (bool) {
+            screenChanges("U bent niet beveiligd.", "Alarm started");
             tvBackgroundColor.setBackgroundColor(Color.parseColor("#FF0000"));
             hardware.startMedia();
             hardware.startVibrate();
-            tvMessage.setText("U bent niet beveiligd");
-            tvMessage.setTextColor(Color.WHITE);
-            Toast.makeText(this, "Alarm started", Toast.LENGTH_SHORT).show();
-         return true;
-        }
-        else {
+            //  tvMessage.setText("U bent niet beveiligd");
+            //Toast.makeText(this, "Alarm started", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            screenChanges("U bent beveiligd.", "Alarm gepauzeerd");
             tvBackgroundColor.setBackgroundColor(Color.parseColor("#045340"));
             hardware.pauseMedia();
             hardware.stopVibrate();
-            tvMessage.setText("U bent beveiligd");
-            tvMessage.setTextColor(Color.WHITE);
-            Toast.makeText(this, "Alarm paused", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
 
-    public void fillBluetoothList(){
-        if(hardware.bluetoothState().equals("Bluetooth is verbonden.")){
-        ArrayAdapter adapter = new ArrayAdapter(lvConnectedDevices.getContext(),android.R.layout.simple_list_item_1);
-        hardware.fillConnectedDeviceList(lvConnectedDevices,adapter);
+    public void fillBluetoothList() {
+        if (hardware.bluetoothState().equals(BluetoothState.CONNECTED)) {
+            ArrayAdapter adapter = new ArrayAdapter(lvConnectedDevices.getContext(), android.R.layout.simple_list_item_1);
+            hardware.fillConnectedDeviceList(lvConnectedDevices, adapter);
         } else {
-            Toast.makeText(this, hardware.bluetoothState(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, hardware.bluetoothState().toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
- /*   public void screenChanges(String backgroundcolor, String messageText,String notificationText){
-        tvBackgroundColor.setBackgroundColor(Color.parseColor(backgroundcolor));
+    public void screenChanges(String messageText, String notificationText) {
         tvMessage.setText(messageText);
         tvMessage.setTextColor(Color.WHITE);
-        Toast.makeText(this, notificationText.toString(), Toast.LENGTH_SHORT).show();
-    }*/
+        Toast.makeText(this, notificationText, Toast.LENGTH_SHORT).show();
+    }
 
-
-
+    public void setTvBluetoothText() {
+        switch (hardware.bluetoothState()) {
+            case CONNECTED:
+                this.tvBluetooth.setText("Bluetooth is verbonden.");
+                break;
+            case NOT_CONNECTED:
+                this.tvBluetooth.setText("Bluetooth is niet verbonden.");
+                break;
+            case NOT_SUPPORTED:
+                this.tvBluetooth.setText("Apparaat ondersteunt geen bluetooth.");
+                break;
+            default:
+                this.tvBluetooth.setText("Onbekende bluetooth status");
+        }
+    }
 }

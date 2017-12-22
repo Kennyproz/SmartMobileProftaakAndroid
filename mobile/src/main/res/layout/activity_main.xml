@@ -6,21 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.ken.smartmobileproftaakandroid.MainActivity">
 
-    <TextView
-        android:id="@+id/tvSafetyMessage"
-        android:layout_width="298dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="-"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvBackgroundcolor"
-        app:layout_constraintEnd_toEndOf="@+id/tvBackgroundcolor"
-        app:layout_constraintStart_toStartOf="@+id/tvBackgroundcolor"
-        app:layout_constraintTop_toTopOf="@+id/tvBackgroundcolor" />
-
     <Switch
         android:id="@+id/swMediaPlayer"
         android:layout_width="wrap_content"
@@ -69,9 +54,26 @@
         android:textColorLink="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lvConnectedDevices"
         app:layout_constraintVertical_bias="0.444" />
+
+    <TextView
+        android:id="@+id/tvSafetyMessage"
+        android:layout_width="298dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="-"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBackgroundcolor"
+        app:layout_constraintEnd_toEndOf="@+id/tvBackgroundcolor"
+        app:layout_constraintStart_toStartOf="@+id/tvBackgroundcolor"
+        app:layout_constraintTop_toTopOf="@+id/tvBackgroundcolor" />
 
 </android.support.constraint.ConstraintLayout>

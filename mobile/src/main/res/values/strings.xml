@@ -4,4 +4,11 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
+    <string name="settings">Instellingen</string>
+    <string name="connect_device">Apparaat koppelen</string>
+    <string name="colors">Kleuren</string>
+    <string name="color_secured">Kleur als de telefoon beveiligd is.</string>
+    <string name="color_unsecured">Kleur als de telefoon niet beveiligd is.</string>
+    <string name="reset_colors_to_default">Zet kleuren terug naar standaard</string>
+    <string name="back">Terug</string>
 </resources>

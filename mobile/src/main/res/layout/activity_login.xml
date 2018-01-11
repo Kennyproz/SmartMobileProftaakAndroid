@@ -16,6 +16,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="228dp"
         android:elevation="0dp"
+        android:onClick="forgetPass"
         android:text="Wachtwoord vergeten?"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

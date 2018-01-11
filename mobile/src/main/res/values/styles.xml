@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -11,8 +11,28 @@
 
     <style name="DarkGreen" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">#045340</item>
-        <item name="colorPrimaryDark">#045340</item>
-        <item name="colorAccent">#9E9E9E</item>
+        <item name="colorPrimaryDark">#004330</item>
+        <item name="colorAccent">#fff</item>
         <item name="android:background"></item>
+        <item name="android:buttonStyle">@style/GreenBtn</item>
+        <item name="android:textStyle">@style/Title</item>
+    </style>
+
+    <style name="GreenBtn" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:color">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">326dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">140dp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="Title" parent="@style/Base.TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily"></item>
+        <item name="android:textSize">30sp</item>
     </style>
 </resources>

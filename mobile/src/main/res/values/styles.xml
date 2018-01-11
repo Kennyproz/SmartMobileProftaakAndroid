@@ -15,7 +15,6 @@
         <item name="colorAccent">#fff</item>
         <item name="android:background"></item>
         <item name="android:buttonStyle">@style/GreenBtn</item>
-        <item name="android:textStyle">@style/Title</item>
     </style>
 
     <style name="GreenBtn" parent="Base.TextAppearance.AppCompat.Button">

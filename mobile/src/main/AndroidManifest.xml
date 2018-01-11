@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:parentActivityName="com.example.ken.smartmobileproftaakandroid.LoginActivity">
@@ -35,7 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ken.smartmobileproftaakandroid.LoginActivity" />
         </activity>
-
+        
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

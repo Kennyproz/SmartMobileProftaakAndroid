@@ -28,10 +28,12 @@
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginTop">140dp</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">12dp</item>
     </style>
-    <style name="Title" parent="@style/Base.TextAppearance.AppCompat.Caption">
-        <item name="android:fontFamily"></item>
+    <style name="TitleText" >
+        
         <item name="android:textSize">30sp</item>
+        <item name="android:solidColor">@color/colorPrimaryDark</item>
+        <item name="android:strokeColor">#000000</item>
     </style>
 </resources>

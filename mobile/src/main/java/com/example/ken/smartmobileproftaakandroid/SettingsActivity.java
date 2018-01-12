@@ -25,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initialize () {
         MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
-        lvBluetoothDevices = (ListView)findViewById(R.id.lvBluetoothDevices);
+        lvBluetoothDevices = findViewById(R.id.lvBluetoothDevices);
        if(getIntent().getSerializableExtra("Hardware") != null){
             hardware =(Hardware)getIntent().getSerializableExtra("Hardware");
         } else{

@@ -37,10 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         hardware.stopMedia();
-<<<<<<< HEAD
         hardware.stopVibrate();
-=======
->>>>>>> c6d4aceed8cc6504da9dee51200f70bac647807c
 
     }
 

@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        //   hardware.stopMedia();
+        hardware.stopMedia();
+        hardware.stopVibrate();
 
     }
 

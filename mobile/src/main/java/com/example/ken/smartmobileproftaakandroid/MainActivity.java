@@ -163,7 +163,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        alarm(false);
+        if (mediaSwitch.isEnabled()) {
+            alarm(false);
+        }
         super.onBackPressed();
     }
 }

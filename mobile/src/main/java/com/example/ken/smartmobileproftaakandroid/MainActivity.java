@@ -2,6 +2,7 @@ package com.example.ken.smartmobileproftaakandroid;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.app.PendingIntent;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+//import android.support.wearable.input.RemoteInputConstants;
 
 public class MainActivity extends AppCompatActivity {
     Hardware hardware;
@@ -75,8 +77,12 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent viewPendingIntent =
                 PendingIntent.getActivity(this, 0, viewIntent, 0);
 
+        //Reply options voor notification
         String replyLabel = "Reply";
         String[] replyChoices = getResources().getStringArray(R.array.reply_choices);
+
+        //Bundle extras = new Bundle();
+        //extras.putBoolean(RemoteInputConstants.EXTRA_DISALLOW_EMOJI, true);
 
         RemoteInput remoteInput = new RemoteInput.Builder(EXTRA_VOICE_REPLY)
                 .setLabel(replyLabel)
@@ -88,12 +94,17 @@ public class MainActivity extends AppCompatActivity {
                 .setAllowGeneratedReplies(true)
                 .build();
 
+        //Extra background image voor Smartwatch
         NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender()
-                .setHintHideIcon(false);
+                .setHintHideIcon(false)
+                .setBackground(BitmapFactory.decodeResource(
+                        getResources(), R.drawable.sligrobit));
 
+        //General notification stuff
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, id)
                         .setSmallIcon(R.drawable.sligrologo)
+                        .setColor(Color.parseColor("#045340"))
                         .setContentTitle("Sligro Security")
                         .setContentText("Mobile out of reach. Respond!")
                         .extend(wearableExtender.addAction(action))

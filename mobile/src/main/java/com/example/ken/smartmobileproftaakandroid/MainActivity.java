@@ -155,4 +155,17 @@ public class MainActivity extends AppCompatActivity {
                 this.tvBluetooth.setText("Onbekende bluetooth status");
         }
     }
+
+    public void settings(View view){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mediaSwitch.isEnabled()) {
+            alarm(false);
+        }
+        super.onBackPressed();
+    }
 }

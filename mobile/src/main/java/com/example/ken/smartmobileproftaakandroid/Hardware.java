@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.CapabilityApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +26,7 @@ import java.util.Set;
  * Created by Ken on 30-11-2017.
  */
 
-public class Hardware {
+public class Hardware implements Serializable {
     private static final String CAPABILITY_NAME = "voice_transcription";
     Vibrator vibrator;
     BluetoothAdapter bluetoothAdapter;

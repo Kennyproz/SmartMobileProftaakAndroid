@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/lvBluetoothDevices"
         android:layout_width="0dp"
         android:layout_height="177dp"
         android:layout_marginEnd="8dp"
@@ -53,7 +53,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView" />
+        app:layout_constraintTop_toBottomOf="@+id/lvBluetoothDevices" />
 
     <TextView
         android:id="@+id/textView4"

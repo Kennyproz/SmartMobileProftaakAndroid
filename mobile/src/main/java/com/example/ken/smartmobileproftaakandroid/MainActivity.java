@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     Hardware hardware;
     Switch mediaSwitch;
     TextView tvBluetooth, tvMessage, tvBackgroundColor;
-    ListView lvConnectedDevices;
     ImageView img;
     public static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
 
@@ -50,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         mediaSwitch = (Switch) findViewById(R.id.swMediaPlayer);
         tvMessage = (TextView) findViewById(R.id.tvSafetyMessage);
         tvBackgroundColor = (TextView) findViewById(R.id.tvBackgroundcolor);
-        lvConnectedDevices = (ListView) findViewById(R.id.lvConnectedDevices);
-        fillBluetoothList();
         tvBluetooth = (TextView) findViewById(R.id.tvBluetooth);
         setTvBluetoothText();
     }
@@ -125,15 +122,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void fillBluetoothList() {
-        if (hardware.bluetoothState().equals(BluetoothState.CONNECTED)) {
-            ArrayAdapter adapter = new ArrayAdapter(lvConnectedDevices.getContext(), android.R.layout.simple_list_item_1);
-            hardware.fillConnectedDeviceList(lvConnectedDevices, adapter);
-        } else {
-            Toast.makeText(this, "Bluetooth: " + hardware.bluetoothState().toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void screenChanges(String messageText, String notificationText) {
         tvMessage.setText(messageText);
         tvMessage.setTextColor(Color.WHITE);
@@ -158,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void settings(View view){
         Intent intent = new Intent(this, SettingsActivity.class);
+        if(hardware.getBluetoothDevice() != null){
+            intent.putExtra("Hardware", hardware);
+        }
         startActivity(intent);
     }
 

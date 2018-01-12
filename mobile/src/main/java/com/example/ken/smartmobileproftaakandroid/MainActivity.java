@@ -1,22 +1,18 @@
 package com.example.ken.smartmobileproftaakandroid;
 
 import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothDevice;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.RemoteInput;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,18 +36,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        //   hardware.stopMedia();
+        hardware.stopMedia();
 
     }
 
     public void initialize() {
         MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
-        img = (ImageView)findViewById(R.id.ivCheck);
+        img = findViewById(R.id.ivCheck);
         hardware = new Hardware(this, mp);
-        mediaSwitch = (Switch) findViewById(R.id.swMediaPlayer);
-        tvMessage = (TextView) findViewById(R.id.tvSafetyMessage);
-        tvBackgroundColor = (TextView) findViewById(R.id.tvBackgroundcolor);
-        tvBluetooth = (TextView) findViewById(R.id.tvBluetooth);
+        mediaSwitch = findViewById(R.id.swMediaPlayer);
+        tvMessage = findViewById(R.id.tvSafetyMessage);
+        tvBackgroundColor = findViewById(R.id.tvBackgroundcolor);
+        tvBluetooth = findViewById(R.id.tvBluetooth);
         setTvBluetoothText();
     }
 
